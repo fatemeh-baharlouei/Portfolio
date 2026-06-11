@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Fatemeh Baharlouei</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #1c2128;
+    --white: #f0ede8;
+    --accent: #f97316;
+    --accent2: #fb923c;
+    --mid: #252d38;
+    --muted: #9aa1a9;
+    --border: #2e3a47;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: crosshair;
+    padding: 0 3%;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 6rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,10,0.88);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav ul a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 6rem 3rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 200;
+    font-size: clamp(1.5rem, 1.5vw, 1.5rem);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 2rem;
+    line-height: 1;
+  }
+
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: clamp(4.5rem, 1vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+    display: block;
+    font-size: 0.45em;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-top: 0.4rem;
+  }
+
+  .hero-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-sub {
+    color: var(--muted);
+    font-size: 0.82rem;
+    max-width: 65ch;
+    margin-bottom: 3rem;
+    line-height: 1.9;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.6rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 6rem 3rem;
+    position: relative;
+  }
+
+  /* Geometric SVG art */
+  .geo-art {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    height: 340px;
+    opacity: 0.18;
+    animation: rotateSlow 40s linear infinite;
+  }
+
+  @keyframes rotateSlow {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+  }
+
+  .stat-cell {
+    background: var(--black);
+    padding: 1.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  /* SECTIONS */
+  section {
+    border-top: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 3rem 3rem 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  h2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    letter-spacing: -0.01em;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-text {
+    padding: 3rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .about-text p {
+    color: #bbb;
+    font-size: 0.85rem;
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-text p strong {
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .about-sidebar {
+    padding: 2rem;
+  }
+
+  .skills-block { margin-bottom: 1.2rem; margin-top: 1.2rem;}
+
+  .skills-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .tag:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* RESEARCH */
+  .research-thesis {
+    padding: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .thesis-card {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.3s;
+  }
+
+  .thesis-card:hover { border-color: var(--accent); }
+
+  .thesis-meta {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+
+  .thesis-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .thesis-desc {
+    color: var(--muted);
+    font-size: 0.68rem;
+    line-height: 1.8;
+  }
+
+  /* PROJECTS — new expandable panel system */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-entry {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .project-summary {
+    display: grid;
+    grid-template-columns: 4rem 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .project-summary:hover { background: var(--mid); }
+
+  .project-entry.open .project-summary {
+    background: var(--mid);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .project-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--border);
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .project-entry.open .project-num,
+  .project-summary:hover .project-num { color: var(--accent); }
+
+  .project-summary-middle { }
+
+  .project-type {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.35rem;
+  }
+
+  .project-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .project-toggle {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s;
+    font-size: 1rem;
+    color: var(--muted);
+  }
+
+  .project-entry.open .project-toggle {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: rotate(45deg);
+  }
+
+  /* DETAIL DRAWER */
+  .project-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-entry.open .project-detail {
+    max-height: 10000px;
+  }
+
+  .project-detail-inner {
+    padding: 3rem;
+    display: block;
+    background: var(--mid);
+  }
+
+  .detail-desc {
+    color: rgb(178, 178, 192);
+    font-size: 0.8rem;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  /* STAGES — cleaned up */
+  .stages-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .stages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .stage-item {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stage-item:last-child { border-bottom: none; }
+
+  .stage-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+
+  .stage-desc {
+    font-size: 0.73rem;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* STEP BLOCK — section divider within a project */
+  .step-block {
+    margin: 2rem 0 0.5rem;
+    padding: 0.6rem 1rem;
+    background: var(--black);
+    border-left: 3px solid var(--accent);
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .step-block-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 200;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .step-block-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+
+  /* subsection label inside a step */
+  .sub-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin: 1.2rem 0 0.6rem;
+  }
+
+  /* TOOLS in detail */
+  .detail-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .tool-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* IMAGE GRID in detail */
+  .project-detail-right {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .image-slot {
+    background: var(--black);
+    border: 1px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    min-height: 12rem;
+    max-width: 400px;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .image-slot:hover { border-color: var(--accent); }
+
+  .image-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .image-slot-caption {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 0.3rem 0.75rem 0.6rem;
+  text-align: left;
+  width: 100%;
+  }
+
+  .image-slot-caption strong {
+    color: var(--accent);
+  }
+
+  .image-slot-icon {
+    font-size: 1.5rem;
+    opacity: 0.2;
+  }
+
+  /* wide slots span full width */
+  .image-slot.wide {
+    grid-column: span 2;
+    min-height: 16rem;
+    max-width: 800px;
+  }
+
+  /* Key results strip — full width */
+  .detail-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .detail-result-cell {
+    background: var(--black);
+    padding: 1.2rem 1.5rem;
+  }
+
+  .detail-result-num {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--accent);
+    display: block;
+  }
+
+  .detail-result-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .project-detail-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .project-summary { grid-template-columns: 2.5rem 1fr auto; padding: 1.5rem; gap: 1rem; }
+    .detail-results { grid-template-columns: 1fr 1fr; }
+    .image-slot.wide { grid-column: span 1; }
+  }
+
+  /* TABLE TITLE */
+  .table-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding: 0.5rem 0 0.6rem;
+  text-align: left;
+  width: 100%;
+  }
+
+  .table-title strong {
+    color: var(--accent);
+  }
+
+  .detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.68rem;
+    margin-top: 0.1rem;
+    margin-bottom: 1.2rem;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .detail-table th {
+    background: var(--black);
+    color: var(--accent);
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .detail-table td {
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--border);
+    color: #aab;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .detail-table tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .detail-table td:first-child {
+    color: var(--white);
+    white-space: nowrap;
+    font-weight: 400;
+  }
+
+  .detail-section-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin: 1.5rem 0 0.6rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .project-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .project-meta-row span strong {
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .conclusion-box {
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 1.2rem 1.5rem;
+    font-size: 0.76rem;
+    color: #aab;
+    line-height: 1.85;
+    margin-top: 1rem;
+  }
+
+  
+  .pub-item:last-child { border-bottom: none; }
+
+  .pub-authors {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .pub-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+  }
+
+  .pub-venue {
+    font-size: 0.68rem;
+    color: var(--accent2);
+    font-style: italic;
+  }
+
+
+  /* STATEMENT */
+  #statement {
+    background: var(--mid);
+  }
+
+  .statement-inner {
+    padding: 5rem 3rem;
+    max-width: 800px;
+  }
+
+  .statement-inner blockquote {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    line-height: 1.5;
+    color: var(--white);
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 2rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .statement-body {
+    color: #999;
+    font-size: 0.83rem;
+    line-height: 2;
+    max-width: 65ch;
+  }
+
+  /* CONTACT */
+
+  .contact-info {
+    padding: 3rem 3rem;
+  }
+
+  .contact-info h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-info p {
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+
+  .contact-link-icon {
+    width: 1.5rem;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .icd-note {
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .icd-note-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .icd-note p {
+    color: #888;
+    font-size: 0.78rem;
+    line-height: 1.8;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  @media (max-width: 768px) {
+    #hero, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero-left { border-right: none; border-bottom: 1px solid var(--border); }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card { border-right: none; }
+    nav ul { gap: 1.2rem; }
+    nav { padding: 1rem 1.5rem; }
+    .hero-left, .about-text, .about-sidebar, .contact-info, .contact-right { padding: 2rem 1.5rem; }
+    .section-header, .pub-list, .research-thesis, .statement-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
+    h1 { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">PORTFOLIO — 2026 </a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">PORTFOLIO — 2026</div>
+    <h1>
+      Fatemeh<br>Baharlouei
+    </h1>
+    <div class="hero-role">Building Science Researcher</div>
+    <p class="hero-sub">
+      Building science researcher specializing in energy efficiency, occupant comfort, and building performance analysis — bridging data-driven computational methods and performance-driven design to shape more sustainable built environments.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in Touch →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <svg class="geo-art" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="170,10 330,290 10,290" stroke="#f97316" stroke-width="1"/>
+      <polygon points="170,50 290,270 50,270" stroke="#fb923c" stroke-width="0.5"/>
+      <polygon points="170,90 250,250 90,250" stroke="#f97316" stroke-width="1"/>
+      <circle cx="170" cy="170" r="80" stroke="#f97316" stroke-width="0.5"/>
+      <circle cx="170" cy="170" r="120" stroke="#fb923c" stroke-width="0.3"/>
+      <line x1="10" y1="170" x2="330" y2="170" stroke="#f97316" stroke-width="0.3"/>
+      <line x1="170" y1="10" x2="170" y2="330" stroke="#f97316" stroke-width="0.3"/>
+      <rect x="110" y="110" width="120" height="120" stroke="#fb923c" stroke-width="0.5" transform="rotate(45 170 170)"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header fade-in">
+    <span class="section-num">01 /</span>
+    <h2>About</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>
+        I am <strong>Fatemeh Baharlouei</strong>, a Building Science researcher with an M.Sc. from <strong>Shahid Beheshti University</strong>, Tehran. My research focused on data-driven control strategies for kinetic façades, aiming to simultaneously optimize energy performance and occupant visual comfort.
+      </p>
+      <p>
+        My work combines <strong>building performance simulation, computational workflows, machine learning,</strong> and <strong>multi-objective optimization</strong> to develop adaptive building systems that respond intelligently to changing environmental conditions and occupant needs.
+      </p>
+    </div>
+    <div class="about-sidebar fade-in">
+      <div class="skills-block">
+        <div class="skills-label">Simulation & Environmental Analysis</div>
+        <div class="skill-tags">
+          <span class="tag">Ladybug Tools</span>
+          <span class="tag">Honeybee</span>
+          <span class="tag">DesignBuilder</span>
+          <span class="tag">ClimateStudio</span>
+        </div>
+      </div>
+      <div class="skills-block">
+        <div class="skills-label">Computational & Programming</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Grasshopper</span>
+          <span class="tag">Rhino</span>
+          <span class="tag">Revit</span>
+          <span class="tag">AutoCAD</span>
+        </div>
+      </div>
+      <div class="skills-block">
+        <div class="skills-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Persian — Native</span>
+          <span class="tag">English — Fluent (IELTS 8.0)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- READ MORE BUTTON -->
+  <div style="padding: 0rem 3rem 2rem 3rem;">
+    <button onclick="toggleAbout()" id="about-toggle-btn" style="background:none; border:1px solid var(--border); color:var(--accent); font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.2rem;">
+      Read More ↓
+    </button>
+  </div>
+
+  <!-- EXPANDABLE CONTENT -->
+  <div id="about-expanded" style="display:none; border-top: 1px solid var(--border); margin-top: 2rem;">
+
+    <!-- EDUCATION -->
+    <div class="fade-in" style="padding: 2.5rem 3rem; border-bottom: 1px solid var(--border);">
+      <div class="skills-label" style="margin-bottom:1.5rem;">Education</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">M.Sc. in Building Science</div>
+          <div style="color:var(--accent); font-size:0.72rem; margin-bottom:0.15rem;">Shahid Beheshti University — Tehran, Iran</div>
+          <div style="color:var(--muted); font-size:0.68rem;">Sep 2022 – Jul 2025<br>GPA: 3.79 / 4.0 | 17.55 / 20</div>
+        </div>
+        <div>
+          <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">B.Sc. in Architecture</div>
+          <div style="color:var(--accent); font-size:0.72rem; margin-bottom:0.15rem;">Iran University of Science and Technology — Tehran, Iran</div>
+          <div style="color:var(--muted); font-size:0.68rem;">Sep 2018 – Sep 2022<br>GPA: 3.93 / 4.0 | 18.31 / 20</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESEARCH EXPERIENCE -->
+    <div class="fade-in" style="padding: 2.5rem 3rem; border-bottom: 1px solid var(--border);">
+      <div class="skills-label" style="margin-bottom:1.5rem;">Research Experience</div>
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">Developing Intelligent Control Strategies for Kinetic Façades Using Artificial Neural Networks</div>
+        <div style="color:var(--accent); font-size:0.72rem; margin-bottom:0.15rem;">Shahid Beheshti University — Tehran, Iran</div>
+        <div style="color:var(--muted); font-size:0.68rem; margin-bottom:0.6rem;">Jan 2024 – Jul 2025<br>Supervisors: Dr. Amirreza Ardekani, Dr. Hoda Homayouni &nbsp;·&nbsp; Advisor: Dr. Morteza Rahbar</div>
+        <div class="thesis-desc-preview">
+          <p class="thesis-desc" id="thesis-desc-text" style="display:none;">
+            This thesis developed an intelligent framework for real-time kinetic façade control in an open-plan office context, addressing the rarely integrated combination of visual comfort and energy performance optimization. A comprehensive simulation dataset, 3,200 daylighting samples and 25,740 hourly energy configurations, was generated for a case study in Yazd, Iran, and used to train two high-accuracy ANN surrogate models capable of rapid performance prediction. Four intelligent control strategies (fuzzy logic, brute force search, weighted scoring, and Ev-based control) were designed and benchmarked against the conventional cut-off angle method. The weighted scoring strategy achieved the most consistent improvements: a 10.6% increase in spatial daylight autonomy, 55.9% glare reduction, and 7.3% reduction in annual energy consumption. The results established data-driven ANN-supported façade control as a scalable solution for adaptive building envelopes.
+          </p>
+          <p class="thesis-desc" id="thesis-desc-preview">
+            This thesis developed an intelligent framework for real-time kinetic façade control in an open-plan office context, addressing the rarely integrated combination of visual comfort and energy performance optimization. A comprehensive simulation dataset, 3,200 daylighting samples and 25,740 hourly energy configurations, was generated for a case study in Yazd, Iran, and used to train ...
+          </p>
+          <button onclick="toggleThesisDesc()" id="thesis-toggle-btn" style="background:none; border:none; color:var(--accent); font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; margin-top:0.5rem; padding:0;">Read more ↓</button>
+        </div>
+        <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.5rem;">
+          <span class="tool-tag">Kinetic Façade</span>
+          <span class="tool-tag">ANN Surrogate Models</span>
+          <span class="tool-tag">Building Performance Simulation</span>
+          <span class="tool-tag">Energy Efficiency</span>
+          <span class="tool-tag">Visual Comfort</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="fade-in" style="padding: 2.5rem 3rem; border-bottom: 1px solid var(--border);">
+      <div class="skills-label" style="margin-bottom:1.5rem;">Publications</div>
+      <div>
+        <div style="color:var(--muted); font-size:0.68rem; margin-bottom:0.2rem;">Fatemeh Baharlouei et al.</div>
+        <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.95rem; margin-bottom:0.2rem;">Intelligent Control Strategies for Kinetic Façades Using Artificial Neural Networks and Multi-Criteria Decision Making: Achieving Energy Efficiency and Visual Comfort</div>
+        <div style="color:var(--accent); font-size:0.72rem; font-style: italic; margin-bottom:0.15rem;">Journal of Daylighting — Accepted</div>
+      </div>
+    </div>
+
+    <!-- TEACHING EXPERIENCE -->
+    <div class="fade-in" style="padding: 2.5rem 3rem; border-bottom: 1px solid var(--border);">
+      <div class="skills-label" style="margin-bottom:1.5rem;">Teaching Experience</div>
+      <div style="display:flex; flex-direction:column; gap:1.5rem;">
+        <div style="display:grid; grid-template-columns: 26rem 1fr; gap:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.82rem; margin-bottom:0.2rem;">Environmental Systems Course</div>
+            <div style="color:var(--accent); font-size:0.65rem; margin-bottom:0.15rem;">Shahid Beheshti University</div>
+            <div style="color:var(--muted); font-size:0.65rem;">Sep 2025 – Jan 2026 | Sep 2024 – Jan 2025</div>
+          </div>
+          <div style="font-size:0.72rem; color:var(--muted); line-height:1.75;">
+            • Assisted in teaching principles of climate-responsive design and sustainable architectural practices.<br>• Guided students in coursework and project development.<br>• Assisted with assessment and feedback under course instructor supervision.
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 26rem 1fr; gap:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.82rem; margin-bottom:0.2rem;">Adaptive Kinetic Façade Workshop</div>
+            <div style="color:var(--accent); font-size:0.65rem; margin-bottom:0.15rem;">DigitalFUTURES</div>
+            <div style="color:var(--muted); font-size:0.65rem;">Jul 2024 – Aug 2024</div>
+          </div>
+          <div style="font-size:0.72rem; color:var(--muted); line-height:1.75;">
+            • Supported students in computational design using Rhino and Grasshopper.<br>• Assisted with Ladybug Tools for daylighting, visual comfort, and thermal comfort analysis.
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 26rem 1fr; gap:2rem;">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.82rem; margin-bottom:0.2rem;">Bionic Design Course</div>
+            <div style="color:var(--accent); font-size:0.65rem; margin-bottom:0.15rem;">Iran University of Science & Technology</div>
+            <div style="color:var(--muted); font-size:0.65rem;">Feb 2023 – Jul 2023</div>
+          </div>
+          <div style="font-size:0.72rem; color:var(--muted); line-height:1.75;">
+            • Supported students in bionic design concepts and computational workflows using Grasshopper.<br>• Provided academic feedback during studio sessions and project reviews.<br>• Assisted with student assessment under course instructor supervision.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AWARDS -->
+    <div class="fade-in" style="padding: 2.5rem 3rem;">
+      <div class="skills-label" style="margin-bottom:1.5rem;">Awards & Honours</div>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <div style="display:grid; grid-template-columns:1fr auto; gap:1rem; align-items:start; padding-bottom:1rem; border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.82rem; margin-bottom:0.2rem;">Ranked Among the Top 5 Students in B.Sc. Program</div>
+            <div style="color:var(--accent); font-size:0.65rem; margin-bottom:0.15rem;">Iran University of Science & Technology</div>
+            <div style="color:var(--muted); font-size:0.65rem;">Sep 2022</div>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: 26rem 1fr; gap:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.82rem; margin-bottom:0.2rem;">Direct Admission to M.Sc. Program</div>
+            <div style="color:var(--accent); font-size:0.65rem; margin-bottom:0.15rem;">Shahid Beheshti University</div>
+            <div style="color:var(--muted); font-size:0.65rem;">Aug 2022</div>
+          </div>
+          <div style="font-size:0.72rem; color:var(--muted); line-height:1.75;">Granted in recognition of outstanding undergraduate academic performance</div>
+        </div>
+        <div style="display:grid; grid-template-columns: 26rem 1fr; gap:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border);">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.82rem; margin-bottom:0.2rem;">Direct Admission to M.Sc. Program</div>
+            <div style="color:var(--accent); font-size:0.65rem; margin-bottom:0.15rem;">Iran University of Science & Technology</div>
+            <div style="color:var(--muted); font-size:0.65rem;">Aug 2022</div>
+          </div>
+          <div style="font-size:0.72rem; color:var(--muted); line-height:1.75;">Granted in recognition of outstanding undergraduate academic performance</div>
+        </div>
+        <div style="display:grid; grid-template-columns: 26rem 1fr; gap:2rem;">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:0.82rem; margin-bottom:0.2rem;">Ranked Among Top 2% in B.Sc. University Entrance Exam</div>
+            <div style="color:var(--accent); font-size:0.65rem; margin-bottom:0.15rem;">Iran</div>
+            <div style="color:var(--muted); font-size:0.65rem;">Jul 2018</div>
+          </div>
+          <div style="font-size:0.72rem; color:var(--muted); line-height:1.75;">Among 144,000 competitors in mathematics & physics exam</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header fade-in">
+    <span class="section-num">02 /</span>
+    <h2>Selected Projects</h2>
+  </div>
+  <div class="projects-list">
+
+    <!-- PROJECT 1: Simulation + ANN -->
+    <div class="project-entry fade-in">
+      <div class="project-summary" onclick="toggleProject(this)">
+        <div class="project-num">01</div>
+        <div class="project-summary-middle">
+          <div class="project-type">Building Performance Simulation . Machine Learning</div>
+          <div class="project-title">Parametric Simulation & ANN Surrogate Models for Real-Time Façade Prediction</div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-detail">
+        <div class="project-detail-inner">
+
+          <div class="project-detail-left">
+            <div class="project-meta-row">
+              <span><strong>Date:</strong> Jan 2024 – Jul 2025</span>
+              <span><strong>Type:</strong> Thesis</span>
+              <span><strong>Supervisor:</strong> Dr. Morteza Rahbar</span>
+            </div>
+            <p class="detail-desc">A simulation-driven machine learning framework was developed to enable real-time prediction of building energy and daylighting performance. Parametric simulations in Grasshopper generated two datasets: 3,200 daylighting samples and 25,740 hourly energy configurations. These datasets were used to train two ANN surrogate models capable of rapid performance prediction, enabling intelligent kinetic façade control without the computational burden of running full simulations at each decision step.</p>
+
+            <!-- STEP 1 -->
+            <div class="step-block">
+              <span class="step-block-num">Step 1</span>
+              <span class="step-block-title">Creating the Dataset</span>
+            </div>
+
+            <div class="sub-label">Case Study Definition</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">An open-plan office space in Yazd, Iran was selected as the case study due to its hot arid climate, which presents a challenging context for simultaneously managing solar gains, glare, and daylight availability. The shading system parameters were defined based on solar path analysis conducted in Climate Consultant.</div>
+              </div>
+            </div>
+
+
+            <div class="table-title"><strong>Table 1</strong> — Case Study Characteristics</div>
+            <table class="detail-table">
+              <tr><th>Parameter</th><th>Detail</th></tr>
+              <tr><td>Location</td><td>Yazd, Iran</td></tr>
+              <tr><td>Space Dimensions</td><td>6 (W) × 8 (D) × 3.5 (H) m</td></tr>
+              <tr><td>Occupancy</td><td>0.2 person/m²</td></tr>
+              <tr><td>Occupancy Schedule</td><td>Mon–Fri, 8:00 AM – 5:00 PM</td></tr>
+              <tr><td>Window Orientation</td><td>South</td></tr>
+              <tr><td>Window Height</td><td>2.6 m</td></tr>
+              <tr><td>WWR</td><td>0.7</td></tr>
+              <tr><td>Shading System</td><td>Exterior horizontal louvers</td></tr>
+              <tr><td>Number of Slats</td><td>13</td></tr>
+              <tr><td>Slat Width / Spacing</td><td>20 cm / 20 cm</td></tr>
+              <tr><td>Louver Tilt Range</td><td>–40° to +60°, in 10° increments</td></tr>
+              <tr><td>Adjustment Interval</td><td>1 hour</td></tr>
+            </table>
+
+            <div class="image-slot">
+              <img src="images/101.jpg" alt="Case Study Model" />
+              <div class="image-slot-caption"><strong>Fig. 1</strong> — Case Study Model</div>
+            </div>
+            
+            <div class="image-slot">
+              <img src="images/102.jpg" alt="Louver Tilt Angle Range" />
+              <div class="image-slot-caption"><strong>Fig. 2</strong> — Operational Range of Louver Tilt Angles (–40° to +60°)</div>
+            </div>
+            
+            <div class="sub-label">Simulation</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">Parametric simulations were conducted in Ladybug Tools to generate the dataset used for ANN training. For daylighting, Latin Hypercube Sampling was used to select 3,200 representative configurations from the full set of 25,740 hourly states in a year. For energy, all 25,740 hourly configurations were simulated, capturing hourly total energy consumption (cooling, heating, and lighting).</div>
+              </div>
+            </div>
+
+            <div class="table-title"><strong>Table 2</strong> — Simulation Outputs</div>
+            <table class="detail-table">
+              <tr><th>Metric Type</th><th>Metric</th><th>Detail</th><th>Simulation Engine</th><th>Number of Simulations</th></tr>
+              <tr><td>Daylighting Availability</td><td>rDUDI (500-2000)</td><td>The proportion of sensors with illuminance between 500–2000</td><td rowspan="2">Radiance</td><td rowspan="2">3,200</td></tr>
+              <tr><td>Glare Risk</td><td>Vertical illuminance (Ev)</td><td>Peak vertical illuminance between all the sensors</td></tr>
+              <tr><td>Energy Performance</td><td>Total energy consumption</td><td>Cooling + heating + Lighting</td><td>OpenStudio</td><td>25,740</td></tr>
+            </table>
+
+            <!-- STEP 2 -->
+            <div class="step-block">
+              <span class="step-block-num">Step 2</span>
+              <span class="step-block-title">Training ANN Surrogate Models</span>
+            </div>
+
+            <div class="sub-label">Feature Engineering & Input Definition</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">Input features for each model were selected based on their physical relevance to the target output. The daylight model takes solar geometry, illuminance components, and  louver angle as inputs to capture the combined effect of sun position and shading on daylight transmission. The energy model uses outdoor temperature, humidity, solar radiation components, and hour of day to represent the thermal and occupancy conditions driving energy demand. Climate data was sourced from the EPW file for Yazd.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 3</strong> — ANN Model Inputs & Outputs</div>
+            <table class="detail-table">
+              <tr><th>Model</th><th>Inputs</th><th>Range</th><th>Outputs</th><th>Range</th></tr>
+              <tr><td rowspan="6">Daylight</td><td>Louver angle</td><td>–40° to +60°</td><td rowspan="6">rUDI, Ev</td><td rowspan="6">0% – 87%, 41,284 lux</td></tr>
+              <tr><td>Solar altitude</td><td>8° – 81°</td></tr>
+              <tr><td>Solar azimuth</td><td>83° – 277°</td></tr>
+              <tr><td>Direct illuminance</td><td>0 – 100,243 lux</td></tr>
+              <tr><td>Diffuse horiz. illuminance</td><td>1,546 – 49,297 lux</td></tr>
+              <tr><td>Global horiz. illuminance</td><td>1,566 – 105,141 lux</td></tr>
+              <tr><td rowspan="7">Energy</td><td>Louver angle</td><td>–40° to +60°</td><td rowspan="7">Hourly energy</td><td rowspan="7">0.07 – 4.01 kWh</td></tr>
+              <tr><td>Hour of day</td><td>8:00 – 17:00</td></tr>
+              <tr><td>Outdoor dry-bulb temp.</td><td>–2.8° – 43°C</td></tr>
+              <tr><td>Relative humidity</td><td>10% – 100%</td></tr>
+              <tr><td>Direct solar radiation</td><td>0 – 993 Wh/m²</td></tr>
+              <tr><td>Diffuse radiation</td><td>18 – 462 Wh/m²</td></tr>
+              <tr><td>Global horiz. radiation</td><td>21 – 1,038 Wh/m²</td></tr>
+            </table>
+
+            <div class="sub-label">Model Development & Validation</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">A grid search was conducted to identify the optimal architecture and training parameters, evaluating combinations of hidden layers (1–4), neurons per layer (64–1024), learning rates (0.0001–0.01), batch sizes (32–256), and optimizers (Adam, RMSprop, SGD). Both models converged on a 3-hidden-layer architecture (512→256→64 neurons) with ReLU activations, trained on an 80/20 split with StandardScaler normalization and early stopping to prevent overfitting. The energy model achieved R²=0.98, confirming its reliability for real-time prediction. The daylight model achieved R²=0.98 for rUDI and R²=0.80 for Ev. The lower Ev accuracy could be attributed to dataset skew toward low-glare conditions and high solar variability during peak radiation hours.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 4</strong> — ANN Models Architecture</div>
+            <table class="detail-table">
+              <tr><th>Parameter</th><th>Daylight Model</th><th>Energy Model</th></tr>
+              <tr><td>Hidden layers</td><td>3</td><td>3</td></tr>
+              <tr><td>Neurons per layer</td><td>512 → 256 → 64</td><td>512 → 256 → 64</td></tr>
+              <tr><td>Activation (hidden / output)</td><td>ReLU / Linear</td><td>ReLU / Linear</td></tr>
+              <tr><td>Batch size</td><td>128</td><td>128</td></tr>
+              <tr><td>Learning rate</td><td>0.005, decay 0.9 / 50 steps</td><td>0.005, decay 0.9 / 100 steps</td></tr>
+              <tr><td>Optimizer</td><td>Adam</td><td>RMSprop</td></tr>
+              <tr><td>Early stopping</td><td>Patience: 20 epochs</td><td>Patience: 20 epochs</td></tr>
+              <tr><td>Normalization</td><td>StandardScaler</td><td>StandardScaler</td></tr>
+              <tr><td>Trainable parameters</td><td>153,154</td><td>153,601</td></tr>
+            </table>
+
+            <div class="image-slot wide">
+              <img src="images/103.png" alt="Training & Validation Loss Curves for Daylight Model" />
+              <div class="image-slot-caption"><strong>Fig. 3</strong> — Training & Validation Loss Curves — Daylight Model</div>
+            </div>
+            
+            <div class="image-slot wide">
+              <img src="images/104.png" alt="Training & Validation Loss Curves for Energy Model" />
+              <div class="image-slot-caption"><strong>Fig. 4</strong> — Training & Validation Loss Curves — Energy Model</div>
+            </div>
+
+            <div class="image-slot">
+              <img src="images/105.png" alt="Predicted vs. Actual rUDI" />
+              <div class="image-slot-caption"><strong>Fig. 5</strong> — Predicted vs. Actual Values — rUDI (R²=0.98)</div>
+            </div>
+            
+            <div class="image-slot">
+              <img src="images/106.png" alt="Predicted vs. Actual Ev" />
+              <div class="image-slot-caption"><strong>Fig. 6</strong> — Predicted vs. Actual Values — Ev (R²=0.80)</div>
+            </div>
+
+            <div class="image-slot">
+              <img src="images/107.png" alt="Predicted vs. Actual Energy Consumption" />
+              <div class="image-slot-caption"><strong>Fig. 7</strong> — Predicted vs. Actual Values — Enrgy Consumption (R²=0.98)</div>
+            </div>
+
+            <div class="detail-tools">
+              <span class="tool-tag">Python / TensorFlow</span>
+              <span class="tool-tag">Ladybug Tools</span>
+              <span class="tool-tag">Grasshopper</span>
+              <span class="tool-tag">Artificial Neural Networks</span>
+              <span class="tool-tag">Surrogate Modelling</span>
+              <span class="tool-tag">Latin Hypercube Sampling</span>
+              <span class="tool-tag">Building Performance Simulation</span>
+            </div>
+          </div>
+
+            <div class="detail-results">
+              <div class="detail-result-cell">
+                <span class="detail-result-num">R²=0.98</span>
+                <div class="detail-result-label">Energy Model</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">R²=0.98</span>
+                <div class="detail-result-label">rUDI Model</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">3,200</span>
+                <div class="detail-result-label">Daylight Samples</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">25,740</span>
+                <div class="detail-result-label">Energy Configurations</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+    <!-- PROJECT 2: Control Strategies + Evaluation -->
+    <div class="project-entry fade-in">
+      <div class="project-summary" onclick="toggleProject(this)">
+        <div class="project-num">02</div>
+        <div class="project-summary-middle">
+          <div class="project-type">Intelligent Control . Performance Evaluation</div>
+          <div class="project-title">Multi-Objective Control Strategies for Kinetic Façade</div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-detail">
+        <div class="project-detail-inner">
+
+          <div class="project-detail-left">
+            <div class="project-meta-row">
+              <span><strong>Date:</strong> Jan 2024 – Jul 2025</span>
+              <span><strong>Type:</strong> Thesis</span>
+              <span><strong>Supervisors:</strong> Dr. Amirreza Ardekani &amp; Dr. Hoda Homayouni</span>
+            </div>
+            <p class="detail-desc">Building on the ANN surrogate models developed in the previous phase, four intelligent louver control strategies were designed to jointly optimize glare prevention, daylight availability, and energy efficiency. Each strategy was evaluated against the conventional cut-off angle method across three annual performance dimensions, confirming that data-driven, multi-objective control significantly outperforms rule-based approaches.</p>
+
+            <div class="step-block">
+              <span class="step-block-num">Part 1</span>
+              <span class="step-block-title">Intelligent Control Strategies</span>
+            </div>
+
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The control logic applied to the horizontal kinetic louvers is governed by occupancy status. During occupied hours, louver orientation is dynamically adjusted using the intelligent control strategies introduced below. During unoccupied periods, louver angles are set based on seasonal conditions. Four control strategies were developed for the occupied mode to select an optimal louver position at every hour.</div>
+                <div class="image-slot">
+                  <img src="images/201.jpg" alt="Kinetic Shading Control Strategy Framework Diagram" />
+                  <div class="image-slot-caption"><strong>Fig. 8</strong> — Kinetic Shading Control Strategy Framework</div>
+                </div>
+              </div>
+            
+              <div class="stage-item">
+                <div class="stage-title">Fuzzy Logic Control</div>
+                <div class="stage-desc">Applies multi-valued reasoning through three fuzzy membership sets (Low, Medium, High) and eleven if–then rules, prioritizing glare prevention, then daylight availability, then energy efficiency.</div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Brute Force Search</div>
+                <div class="stage-desc">Systematically evaluates all eleven louver positions at each time step. Configurations exceeding the Ev discomfort threshold are first filtered out; among the remaining options, the position yielding the highest rUDI is selected, with energy consumption used as a tiebreaker.</div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Weighted Scoring</div>
+                <div class="stage-desc">Normalizes rUDI and energy consumption to a [0,1] range and applies a weighthed scoring function. An equal-weight baseline was tested alongside energy-dominant and daylight-dominant weighting scenarios. The equal-weight configuration delivered the best overall trade-off across glare reduction, sDA improvement, and energy savings.</div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Ev-Based Control</div>
+                <div class="stage-desc">Selects the highest vertical illuminance value below the discomfort threshold, maximizing perceived daylight while preventing glare — an occupant-comfort-first strategy without explicit energy optimisation.</div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Part 2</span>
+              <span class="step-block-title">Annual Performance Evaluation</span>
+            </div>
+
+            <div class="sub-label">Daylighting Performance</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">Annual UDI500–2000 and sDA300/50% were simulated using Ladybug Tools. Brute force search achieved the highest sDA value (0.98), while the weighted scoring strategy improved sDA by 10.6% over the cut-off angle baseline (0.66). All four AI-based strategies outperformed the conventional method on both daylighting metrics.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 5</strong> — Daylighting Performance by Control Strategies</div>
+            <table class="detail-table">
+              <tr><th>Strategy</th><th>Fuzzy Logic</th><th>Brute Force</th><th>Weighted Scoring</th><th>Ev-Based</th><th>Cut-Off Angle</th></tr>
+              <tr><td>Mean UDI (across all sensors)</td><td>40%</td><td>50%</td><td>41%</td><td>45%</td><td>35%</td></tr>
+              <tr><td>sDA</td><td>0.69</td><td>0.98</td><td>0.73</td><td>0.82</td><td>0.66</td></tr>
+            </table>
+
+            <div class="image-slot">
+              <img src="images/202.jpg" alt="UDI Spatial Distribution Maps" />
+              <div class="image-slot-caption"><strong>Fig. 9</strong> — Spatial Distribution Maps of UDI₅₀₀–₂₀₀₀ for All Control Strategies</div>
+            </div>
+
+            <div class="sub-label">Glare Risk (Ev, DGP)</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">Hourly peak Ev was analyzed across the year, and DGP was evaluated at 9:00, 12:00, and 15:00 on June 21 and December 21. The weighted scoring strategy reduced average peak Ev by 55.9% relative to the cut-off baseline (5,255 lux). DGP results confirmed that all AI-based strategies maintain perceptible-or-better glare conditions in most scenarios.</div>
+              </div>
+              <div class="image-slot">
+                <img src="images/203.jpg" alt="Hourly Ev Distribution (Annual)" />
+                <div class="image-slot-caption"><strong>Fig. 10</strong> — Distribution of Hourly Peak Ev During Occupied Hours (Annual)</div>
+              </div>
+              <div class="image-slot">
+                <img src="images/204.jpg" alt="DGP — June 21 & Dec 21" />
+                <div class="image-slot-caption"><strong>Fig. 11</strong> — DGP Values on June 21 & December 21 at 9:00, 12:00 & 15:00</div>
+              </div>
+            </div>
+
+            <div class="sub-label">Annual Energy Consumption</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">Cooling, heating, and lighting energy were estimated using the ANN energy surrogate model for each control strategy across all occupied hours of the year. The weighted scoring strategy achieved the lowest total annual energy consumption (2,635 kWh vs 2,845 kWh baseline), corresponding to an 8.1% reduction in cooling energy and an 8.5% reduction in lighting energy, savings of particular significance given Yazd's hot arid climate.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 6</strong> — Annual Energy Consumption by Control Strategies</div>
+            <table class="detail-table">
+              <tr><th>Energy (kWh)</th><th>Fuzzy Logic</th><th>Brute Force</th><th>Weighted Scoring</th><th>Ev-Based</th><th>Cut-Off Angle</th></tr>
+              <tr><td>Heating</td><td>118</td><td>120</td><td>122</td><td>125</td><td>107</td></tr>
+              <tr><td>Cooling</td><td>2,404</td><td>2,382</td><td>2,289</td><td>2,341</td><td>2,493</td></tr>
+              <tr><td>Lighting</td><td>237</td><td>215</td><td>224</td><td>222</td><td>245</td></tr>
+              <tr><td><strong>Total</strong></td><td><strong>2,759</strong></td><td><strong>2,717</strong></td><td><strong>2,635</strong></td><td><strong>2,688</strong></td><td><strong>2,845</strong></td></tr>
+            </table>
+
+            <div class="sub-label">Comparative Performance Against the Baseline</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The table presented in this section compares the performance of AI-based strategies against the conventional cut-off angle method across daylighting, glare, and energy dimensions. Positive values indicate improvement over the baseline; negative values in heating energy reflect reduced winter solar gains, an inherent trade-off for strategies prioritizing glare prevention.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 7</strong> — Performance Improvement of AI-based strategies vs. Cut-Off Angle method</div>
+            <table class="detail-table">
+              <tr><th>Indicator</th><th>Fuzzy Logic</th><th>Brute Force</th><th>Weighted Scoring</th><th>Ev-Based</th></tr>
+              <tr><td>sDA</td><td>4.5%</td><td>48.4%</td><td>10.6%</td><td>24.2%</td></tr>
+              <tr><td>Avg peak Ev</td><td>42.8%</td><td>53.6%</td><td>55.9%</td><td>51.7%</td></tr>
+              <tr><td>Heating energy</td><td>−10.2%</td><td>−12.1%</td><td>−14.0%</td><td>−16.8%</td></tr>
+              <tr><td>Cooling energy</td><td>3.5%</td><td>4.4%</td><td>8.1%</td><td>6.0%</td></tr>
+              <tr><td>Lighting energy</td><td>3.2%</td><td>12.2%</td><td>8.5%</td><td>9.3%</td></tr>
+              <tr><td><strong>Total energy</strong></td><td><strong>3.0%</strong></td><td><strong>4.5%</strong></td><td><strong>7.3%</strong></td><td><strong>5.5%</strong></td></tr>
+            </table>
+
+            <div class="step-block">
+              <span class="step-block-num">Conclusion</span>
+              <span class="step-block-title">Key Findings</span>
+            </div>
+            <div class="conclusion-box">
+              All four AI-based control strategies outperformed the conventional cut-off angle method across daylighting availability, glare control, and energy efficiency. The weighted scoring system delivered the most balanced performance, achieving 55.9% glare reduction, 10.6% sDA improvement, and 7.3% total energy savings, while the brute force search maximized daylight availability with a 48.4% sDA improvement. Model accuracy was confirmed at R²=0.98 for both the energy model and the rUDI daylight output, with the Ev prediction achieving R²=0.80. The lower Ev accuracy could be attributed to dataset distribution skew toward low-glare conditions and high solar variability during peak radiation hours. Enriched high-glare datasets or LSTM architectures are identified as directions for future improvement. The integrated framework — combining parametric simulation data generation, ANN surrogate modelling, and multi-criteria control strategy — is transferable to other façade typologies, climates, and building programs.
+            </div>
+
+            <div class="detail-tools">
+              <span class="tool-tag">Python</span>
+              <span class="tool-tag">Ladybug Tools</span>
+              <span class="tool-tag">Grasshopper</span>
+              <span class="tool-tag">Kinetic Façade Control</span>
+              <span class="tool-tag">Visual Comfort</span>
+              <span class="tool-tag">Energy Efficiency</span>
+              <span class="tool-tag">MCDM</span>
+            </div>
+          </div>
+
+            <div class="detail-results">
+              <div class="detail-result-cell">
+                <span class="detail-result-num">55.9%</span>
+                <div class="detail-result-label">Glare Reduction</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">48.4%</span>
+                <div class="detail-result-label">sDA Improvement</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">8.1%</span>
+                <div class="detail-result-label">Cooling Energy Saving</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">7.3%</span>
+                <div class="detail-result-label">Total Energy Saving</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 — Multi-Objective Optimization -->
+    <div class="project-entry fade-in">
+      <div class="project-summary" onclick="toggleProject(this)">
+        <div class="project-num">03</div>
+        <div class="project-summary-middle">
+          <div class="project-type">Multi-Objective Optimization . Building Performance Simulation</div>
+          <div class="project-title">Multi-Objective Optimization of Energy Consumption and Thermal Comfort using Genetic Algorithm</div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-detail">
+        <div class="project-detail-inner">
+
+          <div class="project-detail-left">
+            <div class="project-meta-row">
+              <span><strong>Date:</strong> Jun 2023</span>
+              <span><strong>Type:</strong> Individual Academic Project</span>
+              <span><strong>Supervisor:</strong> Dr. Zahra Zomorodian</span>
+            </div>
+            <p class="detail-desc">This project investigates the trade-off between energy efficiency and occupant thermal comfort in an open-plan office building in Shiraz, Iran. A simulation-based optimization workflow was developed in DesignBuilder, integrating sensitivity analysis, genetic algorithm optimization, and uncertainty analysis to identify Pareto-optimal design configurations that simultaneously minimize total energy consumption and thermal discomfort hours.</p>
+
+            <div class="step-block">
+              <span class="step-block-num">Step 1</span>
+              <span class="step-block-title">Defining Optimization Objectives & Design Variables</span>
+            </div>
+            <div class="sub-label">Conflicting Objectives</div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">High-performance building design requires balancing two competing goals: minimizing total energy consumption and maximizing occupant thermal comfort. Strategies that reduce energy use, such as lower setpoints, frequently compromise indoor comfort conditions, while comfort-driven decisions tend to increase energy demand. This conflict makes a single optimal solution impossible; the objective is instead to identify a Pareto front of configurations that represent optimal trade-offs across both dimensions.</div>
+              </div>
+            </div>
+            <div class="sub-label">Initiai Design Variables</div>
+              <div class="stages-list">            
+              <div class="stage-item">
+                <div class="stage-desc">Eight design variables were defined to cover the primary parameters influencing thermal performance and energy demand: (1) wall construction type, (2) roof construction type, (3) shading depth, (4) building orientation, (5) window-to-wall ratio (WWR), (6) cooling setpoint, (7) heating setpoint, and (8) natural ventilation setpoint. Both discrete and continuous parameter types were included to reflect the range of design decisions available at the early design stage.</div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Step 2</span>
+              <span class="step-block-title">Sensitivity Analysis</span>
+            </div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">A sensitivity analysis was conducted across 200 simulations to evaluate each variable's individual influence on total site energy consumption and thermal discomfort hours (ASHRAE 55 comfort standard). No single variable was found to dominate either objective; instead, multiple variables contributed meaningfully across both outputs. The four variables with the strongest combined influence were selected for the subsequent optimization stage: cooling setpoint, WWR, heating setpoint, and roof construction type.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 8</strong> — Variables Impact on Performance Objectives</div>
+            <table class="detail-table">
+              <tr><th>Design Variable</th><th>Energy Impact</th><th>Comfort Impact</th><th>Total Impact</th></tr>
+              <tr><td>Cooling setpoint</td><td>0.36</td><td>0.70</td><td><strong>1.06</strong></td></tr>
+              <tr><td>WWR</td><td>0.25</td><td>0.38</td><td><strong>0.63</strong></td></tr>
+              <tr><td>Heating setpoint</td><td>0.58</td><td>0.04</td><td><strong>0.62</strong></td></tr>
+              <tr><td>Roof construction</td><td>0.34</td><td>0.27</td><td><strong>0.61</strong></td></tr>
+              <tr><td>Shading depth</td><td>0.12</td><td>0.40</td><td>0.52</td></tr>
+              <tr><td>Wall construction</td><td>0.21</td><td>0.01</td><td>0.22</td></tr>
+              <tr><td>Building orientation</td><td>0.06</td><td>0.12</td><td>0.18</td></tr>
+              <tr><td>Natural ventilation setpoint</td><td>0.07</td><td>0.11</td><td>0.18</td></tr>
+            </table>
+
+            <div class="image-slot wide">
+              <img src="images/301.png" alt="Sensitivity Analysis — Comfortm" />
+              <div class="image-slot-caption"><strong>Fig. 12</strong> — Sensitivity Analysis — Impact of Design Variables on Thermal Discomfort Hours</div>
+            </div>
+
+            <div class="image-slot wide">
+              <img src="images/302.png" alt="Sensitivity Analysis — Energy" />
+              <div class="image-slot-caption"><strong>Fig. 13</strong> — Sensitivity Analysis — Impact of Design Variables on Energy Consumption</div>
+            </div>
+            
+            <div class="step-block">
+              <span class="step-block-num">Step 3</span>
+              <span class="step-block-title">Multi-Objective Genetic Algorithm Optimization</span>
+            </div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">A multi-objective genetic algorithm was implemented in DesignBuilder to explore the design space defined by the four selected variables. The optimization ran for 20 generations with 20 initial solutions, totaling 300 simulations. The algorithm generated a Pareto front representing optimal trade-offs between energy use and thermal discomfort hours.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 9</strong> — Selected Pareto-Optimal Solutions</div>
+            <table class="detail-table">
+              <tr><th> Sim</th><th>Gen</th><th>Total Energy (kWh)</th><th>Discomfort Hrs</th><th>WWR</th><th>Cool SP</th><th>Heat SP</th><th>Roof U-Value</th></tr>
+              <tr><td>148</td><td>8</td><td>14,332</td><td>900</td><td>20%</td><td>27°C</td><td>20°C</td><td>0.267</td></tr>
+              <tr><td>255</td><td>16</td><td>14,567</td><td>694</td><td>20%</td><td>27°C</td><td>20°C</td><td>0.267</td></tr>
+              <tr><td>234</td><td>14</td><td>14,810</td><td>564</td><td>20%</td><td>26°C</td><td>20°C</td><td>0.267</td></tr>
+              <tr><td>236</td><td>14</td><td>15,063</td><td>468</td><td>20%</td><td>26°C</td><td>20°C</td><td>0.267</td></tr>
+              <tr><td>286</td><td>19</td><td>15,557</td><td>406</td><td>20%</td><td>25°C</td><td>21°C</td><td>0.267</td></tr>
+              <tr><td>294</td><td>19</td><td>15,606</td><td>309</td><td>20%</td><td>25°C</td><td>20°C</td><td>0.267</td></tr>
+              <tr><td>251</td><td>15</td><td>16,164</td><td>209</td><td>20%</td><td>24°C</td><td>21°C</td><td>0.267</td></tr>
+              <tr><td>264</td><td>17</td><td>16,743</td><td>136</td><td>20%</td><td>24°C</td><td>20°C</td><td>0.267</td></tr>
+            </table>
+
+            <div class="image-slot wide">
+              <img src="images/303.png" alt="Pareto Front — Energy vs. Discomfort Hours" />
+              <div class="image-slot-caption"><strong>Fig. 14</strong> — Pareto Front: Energy Consumption vs. Thermal Discomfort Hours</div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Step 4</span>
+              <span class="step-block-title">Uncertainty Analysis</span>
+            </div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">An uncertainty analysis was conducted to evaluate the variability in simulation outputs attributable to operational and modeling uncertainties. Thermal discomfort hours were concentrated in lower-value ranges across the sample, while energy outputs exhibited moderate variability. Overall trends remained consistent with optimization outcomes, confirming the robustness of the Pareto-optimal solutions.</div>
+              </div>
+              <div class="image-slot wide">
+                <img src="images/304.png" alt="Boxplot Distribution — Thermal Discomfort Hours" />
+                <div class="image-slot-caption"><strong>Fig. 15</strong> — Boxplot Distribution of Simulation Outputs — Thermal Discomfort Hours</div>
+              </div>
+              <div class="image-slot wide">
+                <img src="images/305.png" alt="Boxplot Distribution — Energy Consumption" />
+                <div class="image-slot-caption"><strong>Fig. 16</strong> — Boxplot Distribution of Simulation Outputs — Energy Consumption</div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Conclusion</span>
+              <span class="step-block-title">Key Findings & Limitations</span>
+            </div>
+            <div class="conclusion-box">
+              All Pareto-optimal solutions favored low WWR (20%), reflecting the influence of reduced glazing on thermal load management. Cooling setpoint demonstrated the strongest combined effect on both energy consumption and thermal comfort. High-performance roof assemblies (U = 0.267 W/m²K) appeared consistently among optimal configurations, underscoring the contribution of envelope thermal resistance to overall building performance.
+A key limitation of this study is the exclusion of visual comfort and daylighting performance from the optimization objectives, which may favour envelope configurations that compromise daylight availability. Future work should incorporate daylighting, visual comfort, and life-cycle cost as additional optimization objectives.
+            </div>
+
+            <div class="detail-tools">
+              <span class="tool-tag">DesignBuilder</span>
+              <span class="tool-tag">Genetic Algorithm</span>
+              <span class="tool-tag">Sensitivity Analysis</span>
+              <span class="tool-tag">Uncertainty Analysis</span>
+              <span class="tool-tag">Pareto Optimization</span>
+              <span class="tool-tag">Thermal Comfort</span>
+              <span class="tool-tag">Energy Efficiency</span>
+            </div>
+          </div>
+
+            <div class="detail-results">
+              <div class="detail-result-cell">
+                <span class="detail-result-num">8</span>
+                <div class="detail-result-label"> Initial Design Variables</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">300</span>
+                <div class="detail-result-label">GA Simulations</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">20</span>
+                <div class="detail-result-label">Generations</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">500</span>
+                <div class="detail-result-label">Total Simulations</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 — Responsive Kinetic Façade -->
+    <div class="project-entry fade-in">
+      <div class="project-summary" onclick="toggleProject(this)">
+        <div class="project-num">04</div>
+        <div class="project-summary-middle">
+          <div class="project-type">Daylight Optimization . NSGA-II Genetic Algorithm</div>
+          <div class="project-title">Responsive Kinetic Façade with Diamond Modules</div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-detail">
+        <div class="project-detail-inner">
+
+          <div class="project-detail-left">
+            <div class="project-meta-row">
+              <span><strong>Date:</strong> Jul 2024</span>
+              <span><strong>Type:</strong> Workshop</span>
+              <span><strong>Platform:</strong> DigitalFUTURES</span>
+            </div>
+            <p class="detail-desc">This project investigates the performance of a responsive kinetic façade for an office building in Tabriz, Iran. The façade consists of 144 diamond-shaped modules that dynamically adjust their angles throughout the day to improve daylight availability, thermal comfort, and view quality. A multi-objective optimization workflow using the NSGA-II genetic algorithm determines the optimal façade configuration at two-hour intervals during winter days, and the resulting performance is evaluated against a static shading baseline.</p>
+
+
+            <div class="step-block">
+              <span class="step-block-num">Introduction</span>
+              <span class="step-block-title">Case Study</span>
+            </div>
+            <div class="sub-label">Space Characteristics</div>   
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The case study is a south-facing open-plan office in Tabriz, Iran, a city characterized by cold winters and seasonal variation in solar angle, conditions that make dynamic façade adaptation particularly consequential.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 10</strong> — Case Study Characteristics</div>
+            <table class="detail-table">
+              <tr><th>Parameter</th><th>Detail</th></tr>
+              <tr><td>Location</td><td>Tabriz, Iran</td></tr>
+              <tr><td>Space Dimensions</td><td>5 (W) × 6 (D) × 3 (H) m</td></tr>
+              <tr><td>Window Orientation</td><td>South</td></tr>
+              <tr><td>Window Dimensions</td><td>4.9 (W) × 2.9 (H) m</td></tr>
+              <tr><td>WWR</td><td>95%</td></tr>
+            </table>
+
+            <div class="image-slot">
+              <img src="images/401.png" alt="Case Study Model" />
+              <div class="image-slot-caption"><strong>Fig. 17</strong> — Case Study Model</div>
+            </div>
+
+            <div class="sub-label">Kinetic Façade Characteristics</div>   
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The proposed façade consists of 144 diamond-shaped aluminum modules capable of rotating between 0° and 180°. The system responds dynamically to changing environmental conditions, with all modules optimized simultaneously at each two-hour interval.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 11</strong> — Façade Characteristics</div>
+            <table class="detail-table">
+              <tr><th>Parameter</th><th>Detail</th></tr>
+              <tr><td>Modules Shape</td><td>Diamond</td></tr>
+              <tr><td>Number of Modules</td><td>144</td></tr>
+              <tr><td>Module Dimensions</td><td>0.33 × 0.33 m</td></tr>
+              <tr><td>Module Angle Range</td><td>0 - 180⁰</td></tr>
+              <tr><td>Shading Material</td><td>Aluminum</td></tr>
+            </table>
+
+            <div class="image-slot">
+              <img src="images/402.png" alt="Shading Module States Diagram" />
+              <div class="image-slot-caption"><strong>Fig. 18</strong> — Four Representative Module States</div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Methodology</span>
+              <span class="step-block-title">Optimization</span>
+            </div>
+            <div class="sub-label">NSGA-II Multi-Objective Optimization</div>  
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The optimization was implemented using Wallacei X with the NSGA-II algorithm. At each two-hour interval during occupied winter hours, the algorithm searched the full combinatorial space of module angles to identify configurations that simultaneously maximize daylight availability (DA₃₀₀), useful daylight illuminance (UDI), sky exposure (view quality), and Thermal Comfort Percentage (TCP). The multi-objective nature of the problem necessitated a Pareto-based approach, producing a set of non-dominated solutions from which the optimal configuration for each time step was selected.</div>
+              </div>
+              <div class="image-slot wide">
+                <img src="images/403.png" alt="Wallacei Optimization Results" />
+                <div class="image-slot-caption"><strong>Fig. 19</strong> — Wallacei Optimization Results</div>
+              </div>
+            </div>
+            <div class="sub-label">Optimal Angles Throughout the Day</div>  
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The optimization produced distinct optimal configurations for each time step, demonstrating that a single fixed angle is inadequate for all-day performance. </div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 12</strong> — Optimal Façade Module Angles per Time Interval</div>
+            <table class="detail-table">
+              <tr><th>Time Interval</th><th>Optimal Angle</th></tr>
+              <tr><td>08:00 – 10:00</td><td>59°</td></tr>
+              <tr><td>10:00 – 12:00</td><td>20°</td></tr>
+              <tr><td>12:00 – 14:00</td><td>138°</td></tr>
+              <tr><td>14:00 – 16:00</td><td>115°</td></tr>
+              <tr><td>16:00 – 18:00</td><td>98°</td></tr>
+            </table>
+
+            <div class="step-block">
+              <span class="step-block-num">Results</span>
+              <span class="step-block-title">Performance Evaluation</span>
+            </div>
+            <div class="sub-label">Static Shading Baseline</div>  
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">To assess the performance of the responsive façade, the optimized kinetic façade configurations were evaluated against a static shading baseline. The static façade consists of 10 fixed horizontal louvers, representing a typical conventional shading solution. This configuration serves as the reference against which the kinetic façade's dynamic performance is assessed.</div>
+              </div>
+              <div class="image-slot">
+                <img src="images/404.png" alt="Static Façade Configuration" />
+                <div class="image-slot-caption"><strong>Fig. 20</strong> — Static Façade Configuration</div>
+              </div>
+
+            </div>
+            <div class="table-title"><strong>Table 13</strong> — Static Façade Characteristics</div>
+            <table class="detail-table">
+              <tr><th>Parameter</th><th>Detail</th></tr>
+              <tr><td>Type of Shading</td><td>External Horizontal Louvers</td></tr>
+              <tr><td>Number of Slats</td><td>10</td></tr>
+              <tr><td>Louver Tilt Angle</td><td>90°</td></tr>
+              <tr><td>Slat Width</td><td>0.25 m</td></tr>
+              <tr><td>Slat Spacing</td><td>0.3 m</td></tr>
+            </table>
+
+            <div class="sub-label">Kinetic vs. Static Façade Performance</div>  
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The kinetic façade performance was compared across daylight availability, glare risk, view quality, and thermal comfort. Daylight availability, view quality, and thermal comfort results across the full winter day are simulated, demonstrating that dynamic module adaptation achieves meaningful improvements over the static baseline across all four performance criteria. Glare conditions were assessed using DGP values at 9:00, 12:00, and 15:00 on January 21st, a representative winter day. The kinetic façade consistently maintained lower glare values across all evaluated hours.</div>
+              </div>
+              <div class="image-slot">
+                <img src="images/405.png" alt="Glare Evaluation Results" />
+                <div class="image-slot-caption"><strong>Fig. 21</strong> — Glare Evaluation (21st of January)</div>
+              </div>
+              <div class="image-slot wide">
+                <img src="images/406.png" alt="Daylight Availability, View Quality, and Thermal Comfort Evaluation Results" />
+                <div class="image-slot-caption"><strong>Fig. 22</strong> — Daylight Availability, View Quality, and Thermal Comfort Evaluation (During Occupied Winter Hours)</div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Conclusion</span>
+              <span class="step-block-title">Adaptive Envelopes & Future Work</span>
+            </div>
+            <div class="conclusion-box">
+              This project demonstrates how responsive building envelopes can improve environmental performance through data-driven design and evolutionary optimization. By integrating parametric modeling, environmental simulation, and NSGA-II optimization, the project highlights the potential of adaptive façade systems to create more comfortable and energy-responsive buildings. Future development could include annual simulations, energy performance analysis, and real-time sensor-based control strategies.
+            </div>
+
+            <div class="detail-tools">
+              <span class="tool-tag">Wallacei X</span>
+              <span class="tool-tag">Ladybug Tools</span>
+              <span class="tool-tag">Grasshopper</span>
+              <span class="tool-tag">Rhino</span>
+              <span class="tool-tag">NSGA-II</span>
+              <span class="tool-tag">Responsive Kinetic Façade</span>
+              <span class="tool-tag">Visual Comfort</span>
+              <span class="tool-tag">Thermal Comfort</span>
+            </div>
+          </div>
+
+            <div class="detail-results">
+              <div class="detail-result-cell">
+                <span class="detail-result-num">144</span>
+                <div class="detail-result-label">Kinetic Modules</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">5</span>
+                <div class="detail-result-label">Time Intervals</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">4</span>
+                <div class="detail-result-label">Objectives</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">NSGA-II</span>
+                <div class="detail-result-label">Algorithm</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 5 — Office Building Daylighting Retrofit -->
+    <div class="project-entry fade-in">
+      <div class="project-summary" onclick="toggleProject(this)">
+        <div class="project-num">05</div>
+        <div class="project-summary-middle">
+          <div class="project-type">Façade Retrofit . Visual Comfort</div>
+          <div class="project-title">Office Building Daylighting Retrofit</div>
+        </div>
+        <div class="project-toggle">+</div>
+      </div>
+      <div class="project-detail">
+        <div class="project-detail-inner">
+
+          <div class="project-detail-left">
+            <div class="project-meta-row">
+              <span><strong>Date:</strong> Mar 2023</span>
+              <span><strong>Type:</strong> Individual Academic Project</span>
+              <span><strong>Supervisor:</strong> Dr. Zahra Zomorodian</span>
+            </div>
+            <p class="detail-desc">This project assesses and improves the daylight performance of an existing 12-story office building in Tehran, Iran. The existing daylighting and glare conditions were first assessed through simulation, revealing excessive daylight as the primary source of visual discomfort. Three alternative façade strategies were subsequently proposed and evaluated against daylight availability and glare risk.</p>
+
+            <div class="step-block">
+              <span class="step-block-num">Introduction</span>
+              <span class="step-block-title">Case Study & Simulation Details</span>
+            </div>
+            <div class="sub-label">Case Study Characteristics</div>  
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The building under study is a tall corporate structure with predominantly open-plan office spaces in Tehran, featuring extensive glazing on its south façade. Occupied hours run from 8:00 a.m. to 6:00 p.m., and building occupants had raised concerns regarding poor visual comfort conditions in the office spaces.</div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 14</strong> — Interior Space Material Properties</div>
+            <table class="detail-table">
+              <tr><th>Material</th><th>Description</th><th>Reflectance</th><th>Tvis</th></tr>
+              <tr><td>Walls</td><td>White painted</td><td>0.84</td><td>—</td></tr>
+              <tr><td>Ceiling</td><td>White acoustic panels</td><td>0.87</td><td>—</td></tr>
+              <tr><td>Floor</td><td>Beige floor tile</td><td>0.62</td><td>—</td></tr>
+              <tr><td>Window</td><td>Double clear glass, 12.7mm air gap</td><td>—</td><td>0.774</td></tr>
+              <tr><td>Window frame</td><td>Aluminum</td><td>0.64</td><td>—</td></tr>
+            </table>
+            <div class="image-slot">
+              <img src="images/501.png" alt="Building Perspective" />
+              <div class="image-slot-caption"><strong>Fig. 23</strong> — Case Study Model</div>
+            </div>
+            <div class="image-slot">
+              <img src="images/502.png" alt="Site Section" />
+              <div class="image-slot-caption"><strong>Fig. 24</strong> — Site Section</div>
+            </div>
+            <div class="image-slot">
+              <img src="images/503.png" alt="Floor Plan" />
+              <div class="image-slot-caption"><strong>Fig. 25</strong> — Offices Floor Plan</div>
+            </div>
+            <div class="sub-label">Simulation Methodology</div>  
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-desc">The 7th floor was selected as a representative sample for daylight and glare simulation. Simulations were conducted in Climate Studio using two performance metrics: Useful Daylight Illuminance (UDI) for daylight availability and Daylight Glare Probability (DGP) for glare risk.</div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Step 1</span>
+              <span class="step-block-title">Base Case Analysis</span>
+            </div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-title">Daylight</div>
+                <div class="stage-desc">In the base case scenario, the average UDI across the 7th floor was 34%, with the majority of occupied hours falling in the excessive illuminance range. This confirmed that uncontrolled solar gain through the south-facing glazing is the dominant driver of poor visual conditions.</div>
+                <div class="image-slot">
+                  <img src="images/504.png" alt="Base Case UDI" />
+                  <div class="image-slot-caption"><strong>Fig. 26</strong> — Base Case Average UDI Ddistribution</div>
+                </div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Glare</div>
+                <div class="stage-desc">Glare conditions in the base case were similarly critical. Intolerable glare was recorded during 40% of occupied hours, with an additional 13% classified as disturbing and 10% as perceptible. Only 37% of occupied hours met the imperceptible threshold. These results confirmed that façade interventions targeting both daylight reduction and glare control were necessary.</div>
+                <div class="image-slot">
+                  <img src="images/505.png" alt="Base Case DGP" />
+                  <div class="image-slot-caption"><strong>Fig. 27</strong> — Base Case DGP Distribution</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Step 2</span>
+              <span class="step-block-title">Proposing Façade Strategies</span>
+            </div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-title">Strategy 1 — Overhangs</div>
+                <div class="stage-desc">Horizontal shading elements (depth: 140 cm) along the south façade to intercept high-angle direct solar radiation and reduce excessive illuminance at workplane level.</div>
+                <div class="image-slot wide">
+                  <img src="images/506.png" alt="Overhangs" />
+                  <div class="image-slot-caption"><strong>Fig. 28</strong> — Overhangs Configuration</div>
+                </div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Strategy 2 — Double Skin Façade</div>
+                <div class="stage-desc">A second façade layer composed of 15 × 15 cm rectangular modules, optimizing natural light transmission while attenuating direct solar penetration and glare.</div>
+                <div class="image-slot wide">
+                  <img src="images/507.png" alt="Double Skin Façade" />
+                  <div class="image-slot-caption"><strong>Fig. 29</strong> — Double Skin Façade Configuration</div>
+                </div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Strategy 3 — Horizontal Louvres</div>
+                <div class="stage-desc">Fixed horizontal shading devices (width: 35 cm) to control the incoming direct sunlight, improving visual comfort while maintaining a degree of connection to the exterior.</div>
+                <div class="image-slot wide">
+                  <img src="images/508.png" alt="Horizontal Louvres" />
+                  <div class="image-slot-caption"><strong>Fig. 30</strong> — Horizontal Louvres Configuration</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Step 3</span>
+              <span class="step-block-title">Performance Evaluation of Proposed Strategies</span>
+            </div>
+            <div class="stages-list">
+              <div class="stage-item">
+                <div class="stage-title">Strategy 1 — Overhangs</div>
+                <div class="stage-desc">This strategy increased average UDI to 56%, a 64% improvement over the base case. Intolerable glare hours were reduced by half relative to the base case, and the proportion of imperceptible glare hours increased from 37% to 57%.</div>
+                <div class="image-slot">
+                  <img src="images/509.png" alt="UDI Using Overhangs" />
+                  <div class="image-slot-caption"><strong>Fig. 31</strong> — Average UDI Distribution Using Overhangs</div>
+                </div>
+                <div class="image-slot">
+                  <img src="images/510.png" alt="DGP Using Overhangs" />
+                  <div class="image-slot-caption"><strong>Fig. 32</strong> — DGP Distribution Using Overhangs</div>
+                </div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Strategy 2 — Double Skin Façade</div>
+                <div class="stage-desc">The double skin façade achieved the strongest daylight improvement across all three strategies, raising average UDI to 71%, a 108% improvement over the base case. Intolerable glare hours were reduced to 12%, approximately one quarter of the base case value, and imperceptible glare hours doubled from 37% to 74%.</div>
+                <div class="image-slot">
+                  <img src="images/511.png" alt="UDI Using Double Skin Façade" />
+                  <div class="image-slot-caption"><strong>Fig. 33</strong> — Average UDI Distribution Using Double Skin Façade</div>
+                </div>
+                <div class="image-slot">
+                  <img src="images/512.png" alt="DGP Using Double Skin Façade" />
+                  <div class="image-slot-caption"><strong>Fig. 34</strong> — DGP Distribution Using Double Skin Façade</div>
+                </div>
+              </div>
+              <div class="stage-item">
+                <div class="stage-title">Strategy 3 — Horizontal Louvres</div>
+                <div class="stage-desc">Horizontal louvres improved average UDI to 64%, an 88% improvement over the base case. Intolerable glare hours were reduced to 18%, and imperceptible glare hours increased by 70%, from 37% to 63%.</div>
+                <div class="image-slot">
+                  <img src="images/513.png" alt="UDI Using Horizontal Louvres" />
+                  <div class="image-slot-caption"><strong>Fig. 35</strong> — Average UDI Distribution Using Horizontal Louvres</div>
+                </div>
+                <div class="image-slot">
+                  <img src="images/514.png" alt="DGP Using Horizontal Louvres" />
+                  <div class="image-slot-caption"><strong>Fig. 36</strong> — DGP Distribution Using Horizontal Louvres</div>
+                </div>
+              </div>
+            </div>
+            <div class="table-title"><strong>Table 15</strong> — Retrofit Strategy vs. Base Case Performance</div>
+            <table class="detail-table">
+              <tr><th>Strategy</th><th>UDI</th><th>UDI Improvement</th><th>Intolerable Glare</th><th>Imperceptible Glare</th></tr>
+              <tr><td>Base Case</td><td>34.3%</td><td>—</td><td>40%</td><td>37%</td></tr>
+              <tr><td>Overhangs</td><td>56%</td><td>+64%</td><td>20%</td><td>57%</td></tr>
+              <tr><td>Double Skin</td><td><strong>71%<strong></td><td><strong>+108%</strong></td><td><strong>12%</strong></td><td><strong>74%</strong></td></tr>
+              <tr><td>Horiz. Louvres</td><td>64%</td><td>+88%</td><td>18%</td><td>63%</td></tr>
+            </table>
+            </div>
+
+            <div class="step-block">
+              <span class="step-block-num">Conclusion</span>
+              <span class="step-block-title">Best Strategy: Double Skin Façade</span>
+            </div>
+            <div class="conclusion-box">
+              The double skin façade delivered the most significant improvement in both daylight availability and glare control. Average UDI increased from 34% to 71%, representing a 108% improvement, accompanied by a substantial reduction in excessive illuminance across the floor plate. Glare conditions improved markedly: intolerable glare hours were reduced by 70%, disturbing glare by 46%, and perceptible glare by 30%, while imperceptible hours doubled from 37% to 74%. Overhangs and horizontal louvres also improved performance substantially, offering simpler alternatives where a double skin is not feasible.
+            </div>
+
+            <div class="detail-tools">
+              <span class="tool-tag">ClimateStudio</span>
+              <span class="tool-tag">Rhino</span>
+              <span class="tool-tag">Façade Retrofit</span>
+              <span class="tool-tag">Visual Comfort</span>
+              <span class="tool-tag">Daylight Availability</span>
+              <span class="tool-tag">Glare Risk</span>
+            </div>
+
+            <div class="detail-results">
+              <div class="detail-result-cell">
+                <span class="detail-result-num">34% → 71%</span>
+                <div class="detail-result-label">UDI Improvement</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">40% → 12%</span>
+                <div class="detail-result-label">Intolerable Glare</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">13% → 7%</span>
+                <div class="detail-result-label">Disturbing Glare</div>
+              </div>
+              <div class="detail-result-cell">
+                <span class="detail-result-num">37% → 74%</span>
+                <div class="detail-result-label">Imperceptible Glare</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- CONTACT -->
+<section id="contact">
+  <div class="section-header fade-in">
+    <span class="section-num">03 /</span>
+    <h2>Contact</h2>
+  </div>
+  <div class="contact-info fade-in">
+    <h3>Let's Connect.</h3>
+    <div class="contact-links">
+      <a href="mailto:fa.baharlouei@gmail.com" class="contact-link">
+        <span class="contact-link-icon"></span>
+        fa.baharlouei@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/fatemehbaharlouie/" target="_blank" class="contact-link">
+        <span class="contact-link-icon"></span>
+        linkedin.com/in/fatemehbaharlouie
+      </a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Fatemeh Baharlouei — Portfolio</span>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) el.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Project expand/collapse
+  function toggleProject(summaryEl) {
+  const entry = summaryEl.closest('.project-entry');
+  const isOpen = entry.classList.contains('open');
+  if (!isOpen) {
+    entry.classList.add('open');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const navHeight = document.querySelector('nav').offsetHeight;
+        const entryTop = entry.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: entryTop - navHeight - 16, behavior: 'smooth' });
+      });
+    });
+  } else {
+    entry.classList.remove('open');
+  }
+}
+
+  // Thesis description expand/collapse
+  function toggleThesisDesc() {
+    const full = document.getElementById('thesis-desc-text');
+    const preview = document.getElementById('thesis-desc-preview');
+    const btn = document.getElementById('thesis-toggle-btn');
+    if (full.style.display === 'none') {
+      full.style.display = 'block';
+      preview.style.display = 'none';
+      btn.textContent = 'Read less ↑';
+    } else {
+      full.style.display = 'none';
+      preview.style.display = 'block';
+      btn.textContent = 'Read more ↓';
+    }
+  }
+
+  // About description expand/collapse
+  function toggleAbout() {
+    const expanded = document.getElementById('about-expanded');
+    const btn = document.getElementById('about-toggle-btn');
+    const isHidden = expanded.style.display === 'none';
+    expanded.style.display = isHidden ? 'block' : 'none';
+    btn.textContent = isHidden ? 'Show Less ↑' : 'Read More ↓';
+  }
+
+</script>
+</body>
+</html>
